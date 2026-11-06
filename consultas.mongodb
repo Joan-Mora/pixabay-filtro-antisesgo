@@ -1,0 +1,29 @@
+// Consultas para Compass o mongosh.
+// Base: pixabay_taller. Colección: actividad.
+//
+// docker exec -it pixabay-taller-mongo mongosh pixabay_taller
+
+// Búsquedas que el filtro reinterpretó
+db.actividad.find({ tipo: "busqueda", decision: "reescrita" }).sort({ creadaEn: -1 })
+
+// Consultas enviadas tal cual o como excepción de color
+db.actividad.find({
+  tipo: "busqueda",
+  decision: { $in: ["permitida", "excepcion_color", "excepcion_contexto"] }
+}).sort({ creadaEn: -1 })
+
+// Imágenes guardadas de un usuario
+db.actividad.find({ tipo: "imagen", accion: "guardada", usuario: "invitado" })
+
+// Imágenes abiertas en el visor
+db.actividad.find({ tipo: "imagen", accion: "visualizada" }).sort({ actualizadaEn: -1 })
+
+// Conteo de decisiones del filtro
+db.actividad.aggregate([
+  { $match: { tipo: "busqueda" } },
+  { $group: { _id: "$decision", total: { $sum: 1 } } },
+  { $sort: { total: -1 } }
+])
+
+// Usuarios con actividad
+db.actividad.distinct("usuario")

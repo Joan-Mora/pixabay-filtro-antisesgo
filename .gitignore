@@ -1,0 +1,5 @@
+node_modules/
+.env
+*.log
+page-1.png
+page-2.png

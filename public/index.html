@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pixabay · Filtro anti-sesgo</title>
+  <meta name="description" content="Galería de Pixabay con filtro de sesgos y registro en MongoDB.">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="barra">
+    <div class="barra__marca">
+      <p class="eyebrow">Taller práctico · Gestión de bases de datos</p>
+      <h1>Pixabay con filtro anti-sesgo</h1>
+    </div>
+    <label class="usuario">
+      Usuario
+      <input id="usuario" name="usuario" maxlength="40" autocomplete="nickname" value="invitado">
+    </label>
+  </header>
+
+  <main>
+    <p id="aviso-sistema" class="banner banner--sistema" hidden></p>
+
+    <section class="panel" aria-labelledby="titulo-buscador">
+      <div class="panel__cabecera">
+        <h2 id="titulo-buscador">Componente: buscador con filtro algorítmico</h2>
+        <p class="badge"><span class="badge__punto" aria-hidden="true"></span>Filtro anti-sesgo: activo</p>
+      </div>
+
+      <form id="formulario" class="busqueda" role="search">
+        <label class="sr-only" for="consulta">Palabras clave</label>
+        <input
+          id="consulta"
+          name="q"
+          type="search"
+          maxlength="100"
+          placeholder="Escribe palabras clave (ej: 'black', 'poor', 'nature')..."
+          autocomplete="off"
+        >
+        <button type="submit">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="M16 16l4 4"></path></svg>
+          Buscar
+        </button>
+        <div class="historial-rapido">
+          <button type="button" class="btn-historial" id="btn-historial" aria-expanded="false" aria-controls="menu-historial">Historial</button>
+        </div>
+      </form>
+      <div id="menu-historial" class="menu-historial" hidden role="menu"></div>
+
+      <div class="pruebas">
+        <p>Palabras clave de prueba:</p>
+        <div class="chips">
+          <button type="button" class="chip chip--alerta" data-q="black">"BLACK"</button>
+          <button type="button" class="chip chip--alerta" data-q="poor">"POOR"</button>
+          <button type="button" class="chip" data-q="nature">"NATURE"</button>
+          <button type="button" class="chip" data-q="technology">"TECHNOLOGY"</button>
+        </div>
+      </div>
+      <p class="ayuda">
+        BLACK y POOR se reinterpretan: ves escenas relacionadas, sin personas.
+        <button type="button" class="enlace" data-q="gato negro">Probar la excepción «gato negro»</button>
+      </p>
+    </section>
+
+    <section class="resultados" aria-label="Resultados">
+      <div class="pestanas">
+        <div role="tablist" aria-label="Vistas">
+          <button type="button" class="pestana is-activa" id="tab-galeria" role="tab" aria-selected="true" aria-controls="galeria">
+            Galería Pixabay <span id="cuenta-galeria">(0)</span>
+          </button>
+          <button type="button" class="pestana" id="tab-mongo" role="tab" aria-selected="false" aria-controls="mongo">
+            Colección MongoDB <span id="cuenta-mongo">(0)</span>
+          </button>
+        </div>
+        <p class="vista">Vista: respuesta de la API de Pixabay</p>
+      </div>
+
+      <div id="galeria" role="tabpanel" aria-labelledby="tab-galeria"></div>
+      <div id="mongo" role="tabpanel" aria-labelledby="tab-mongo" hidden></div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>Las fotos pertenecen a sus autores en <a href="https://pixabay.com/es/" target="_blank" rel="noopener noreferrer">Pixabay</a>. Cada búsqueda, vista y guardado queda en la colección <code>actividad</code>.</p>
+  </footer>
+
+  <dialog id="visor" class="visor">
+    <div class="visor__panel">
+      <button type="button" class="visor__cerrar" id="visor-cerrar" aria-label="Cerrar">×</button>
+      <img id="visor-img" alt="">
+      <div id="visor-meta" class="visor__meta"></div>
+    </div>
+  </dialog>
+
+  <noscript>
+    <p class="banner">Activa JavaScript para buscar imágenes y registrar la actividad.</p>
+  </noscript>
+  <script src="/app.js" defer></script>
+</body>
+</html>

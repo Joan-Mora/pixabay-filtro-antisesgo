@@ -1,0 +1,15 @@
+# MongoDB local para el taller. En el equipo se publica en el puerto 27018
+# para no chocar con otra instalación que ya escucha en el 27017.
+# Los documentos persisten en el volumen pixabay_mongo.
+services:
+  mongo:
+    image: mongo:7
+    container_name: pixabay-taller-mongo
+    ports:
+      - "27018:27017"
+    volumes:
+      - pixabay_mongo:/data/db
+    restart: unless-stopped
+
+volumes:
+  pixabay_mongo:

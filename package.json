@@ -1,0 +1,31 @@
+{
+  "name": "taller-pixabay-sesgos",
+  "version": "1.0.0",
+  "description": "Galería Pixabay con filtro anti-sesgo y persistencia en MongoDB",
+  "author": "Joan Mora",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joan-Mora/pixabay-filtro-antisesgo.git"
+  },
+  "keywords": [
+    "pixabay",
+    "mongodb",
+    "express",
+    "bias-filter"
+  ],
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test src/biasFilter.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongodb": "^6.13.0"
+  }
+}
